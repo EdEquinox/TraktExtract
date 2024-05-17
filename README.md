@@ -24,7 +24,7 @@ If your script requires any configuration (like API keys, database credentials, 
 
 Run the script from the command line using the PHP CLI:
 
-``php script.php``
+``php TraktExtract.php``
 
 ## Credits
 This script was inspired by [Darek Kay](https://github.com/darekkay) who created the base [script](https://gist.github.com/darekkay/ff1c5aadf31588f11078).
