@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <title>TraktExtract</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="maincontainer">
+        
+        <div class="header">
+            <h1>TraktExtract</h1>
+            <h2>OWN YOUR DATA</h2>
+        </div>
+        <div class="container" id="form-container" >
+
+            <p>Enter your Trakt username and API key to extract your data.</p>
+            <form>
+                <div class="form-field">
+                    <label for="username" class="labelform">Username:</label>
+                    <input type="text" id="username" name="username" class="inputform" required><br><br>
+                </div>
+                <div class="form-field">
+                    <label for="apiKey" class="labelform">API Key:</label>
+                    <input type="text" id="apiKey" name="apiKey" class="inputform" required><br><br>
+                </div>
+                <button id="button12" class="subscribe-btn">Submit</button>
+            </form>
+            
+            <div id="result"></div>
+        </div>
+        <svg
+         xmlns="http://www.w3.org/2000/svg" 
+         viewBox="0 0 1440 320" style="position: fixed; bottom: 0; left:0; width:100%">
+         <path fill="#e01515" 
+         fill-opacity="1" 
+         d="M0,128L14.1,138.7C28.2,149,56,171,85,165.3C112.9,160,141,128,169,149.3C197.6,171,226,245,254,272C282.4,299,311,277,339,245.3C367.1,213,395,171,424,154.7C451.8,139,480,149,508,181.3C536.5,213,565,267,593,261.3C621.2,256,649,192,678,165.3C705.9,139,734,149,762,144C790.6,139,819,117,847,96C875.3,75,904,53,932,58.7C960,64,988,96,1016,133.3C1044.7,171,1073,213,1101,240C1129.4,267,1158,277,1186,266.7C1214.1,256,1242,224,1271,224C1298.8,224,1327,256,1355,261.3C1383.5,267,1412,245,1426,234.7L1440,224L1440,320L1425.9,320C1411.8,320,1384,320,1355,320C1327.1,320,1299,320,1271,320C1242.4,320,1214,320,1186,320C1157.6,320,1129,320,1101,320C1072.9,320,1045,320,1016,320C988.2,320,960,320,932,320C903.5,320,875,320,847,320C818.8,320,791,320,762,320C734.1,320,706,320,678,320C649.4,320,621,320,593,320C564.7,320,536,320,508,320C480,320,452,320,424,320C395.3,320,367,320,339,320C310.6,320,282,320,254,320C225.9,320,198,320,169,320C141.2,320,113,320,85,320C56.5,320,28,320,14,320L0,320Z">
+        </path>
+        </svg>
+    </div>
+
+    <div aria-label="Orange and tan hamster running in a metal wheel" role="img" class="wheel-and-hamster" id="loadingMessage">
+        <div class="wheel"></div>
+        <div class="hamster">
+            <div class="hamster__body">
+                <div class="hamster__head">
+                    <div class="hamster__ear"></div>
+                    <div class="hamster__eye"></div>
+                    <div class="hamster__nose"></div>
+                </div>
+                <div class="hamster__limb hamster__limb--fr"></div>
+                <div class="hamster__limb hamster__limb--fl"></div>
+                <div class="hamster__limb hamster__limb--br"></div>
+                <div class="hamster__limb hamster__limb--bl"></div>
+                <div class="hamster__tail"></div>
+            </div>
+        </div>
+        <div class="spoke"></div>
+        <h2 class="loading-text">Generating file...</h2>
+    </div>
+
+</body>
+
+<script>
+    $(document).ready(function() {
+        $('#get-started').click(function() {
+            $(this).fadeOut();
+            $('#form-container').fadeIn();
+        });
+    });
+
+
+
+    $(document).ready(function(){
+        $("#button12").click(function(e){
+            e.preventDefault();
+            var username = $("#username").val();
+            var apiKey = $("#apiKey").val();
+            if(username === "" || apiKey === "") {
+                alert("Both fields are required!");
+                return;
+            }
+            $("#loadingMessage").show();
+            $.ajax({
+                url: "TraktExtract.php",
+                type: "post",
+                data: {
+                    username: $("#username").val(),
+                    apiKey: $("#apiKey").val()
+                },
+                success: function(data){
+                    console.log('Success function called');
+                    $("#loadingMessage").hide();
+                    if (data.error) {
+                      $("#result").html('Error: ' + data.error);
+                    } else {
+                      //$("#result").html('Zip file path: ' + data.zip_filepath);
+                      // Redirect to the file URL to start the download
+                      window.location.href = 'download.php?file=' + encodeURIComponent(data.zip_filepath);
+                      $("#username").val('');
+                        $("#apiKey").val('');  
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                    console.log(jqXHR);
+                    console.log('Error function called');
+                    $("#loadingMessage").hide();
+                    $("#result").html('Error: ' + textStatus + ' ' + errorThrown);
+                }
+            });
+        });
+    });
+
+</script>
+
+
+</html>
