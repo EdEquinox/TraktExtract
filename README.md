@@ -17,10 +17,6 @@ This script uses cURL to make a request to extract your personal info from Trakt
 3. Replace the API KEY that you can get [here](http://docs.trakt.apiary.io/#introduction/create-an-app) and your Trakt username.
 4. Run the php server ``php -S localhost:8000`` on the project folder.
 
-## Configuration
-
-If your script requires any configuration (like API keys, database credentials, etc.), add them here.
-
 ## Usage
 
 Run the script from the command line using the PHP CLI:
