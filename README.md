@@ -4,6 +4,8 @@
 
 This script uses cURL to make a request to extract your personal info from Trakt.
 
+![Webapp layout](image.png)
+
 ## Requirements
 
 - PHP 7.4 or higher
