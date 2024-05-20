@@ -16,10 +16,6 @@ This script uses cURL to make a request to extract your personal info from Trakt
 2. Ensure you have PHP installed and configured on your machine. This script requires the cURL and Zip extensions to be enabled.
 3. Replace the API KEY that you can get (here)[http://docs.trakt.apiary.io/#introduction/create-an-app] and your Trakt username. 
 
-## Standalone app
-
- - Download here
-
 ## Configuration
 
 If your script requires any configuration (like API keys, database credentials, etc.), add them here.
@@ -28,7 +24,7 @@ If your script requires any configuration (like API keys, database credentials, 
 
 Run the script from the command line using the PHP CLI:
 
-``php script.php``
+``php TraktExtract.php``
 
 ## Credits
 This script was inspired by [Darek Kay](https://github.com/darekkay) who created the base [script](https://gist.github.com/darekkay/ff1c5aadf31588f11078).
